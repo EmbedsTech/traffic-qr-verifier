@@ -1,3 +1,4 @@
+from pyzbar.pyzbar import ZBarSymbol
 import os
 import cv2
 import numpy as np
@@ -23,7 +24,7 @@ def upload_image():
 
     if img is not None:
         # 3. Decode QR
-        qr_results = decode(img)
+        qr_results = decode(img, symbols=[ZBarSymbol.QRCODE])
         if qr_results:
             qr_data = qr_results[0].data.decode('utf-8')
             print(f"✅ DECODED: {qr_data}")
@@ -34,3 +35,4 @@ def upload_image():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+
